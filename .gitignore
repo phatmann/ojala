@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.local
+.DS_Store
+.vite/
+npm-debug.log*
+
+# TypeScript incremental build info
+*.tsbuildinfo
