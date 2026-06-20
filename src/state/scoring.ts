@@ -14,18 +14,26 @@ export interface PlacementResult {
 }
 
 /**
- * Score a placement attempt. `answers` maps question id → chosen option index.
+ * Score an adaptive placement attempt.
+ *
+ * `correctById` maps question id → whether it was answered correctly (the
+ * adaptive engine grades each question as it goes, across several question
+ * types, so we no longer compare raw option indexes here).
+ *
+ * `ability` is the engine's final ability estimate in level-index space; it
+ * sets the overall level, so a true beginner can land at Beginner · Low rather
+ * than being pinned to an artificial floor.
  */
 export function scorePlacement(
   questions: PlacementQuestion[],
-  answers: Record<string, number>,
+  correctById: Record<string, boolean>,
+  ability: number,
 ): PlacementResult {
-  // Group questions by topic and compute correctness ratio per topic.
+  // Group by topic to compute a correctness ratio per topic.
   const byTopic: Record<string, { correct: number; total: number }> = {};
   let correct = 0;
   for (const q of questions) {
-    const chosen = answers[q.id];
-    const isCorrect = chosen === q.answer;
+    const isCorrect = !!correctById[q.id];
     if (isCorrect) correct++;
     const bucket = (byTopic[q.topic] ??= { correct: 0, total: 0 });
     bucket.total++;
@@ -37,31 +45,16 @@ export function scorePlacement(
     masteryByTopic[topic] = Math.round((c / total) * 100);
   }
 
-  // Estimate level: for each level band, average mastery of its topics that
-  // were tested. The estimated level is the highest band the learner still
-  // handles reasonably well (>= 60%).
-  const levelScores: Partial<Record<Level, number[]>> = {};
-  for (const t of TOPICS) {
-    const m = masteryByTopic[t.id];
-    if (m === undefined) continue;
-    (levelScores[t.level] ??= []).push(m);
-  }
+  // Overall level comes straight from the adaptive ability estimate, clamped
+  // to a valid band (no artificial floor).
+  const idx = Math.max(0, Math.min(LEVELS.length - 1, Math.round(ability)));
+  const estimated: Level = LEVELS[idx];
 
-  let estimated: Level = 'novice-high';
-  for (const level of LEVELS) {
-    const scores = levelScores[level];
-    if (!scores || scores.length === 0) continue;
-    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-    if (avg >= 60) {
-      estimated = level;
-    } else {
-      // First band they struggle with — stop climbing.
-      break;
-    }
-  }
-
-  // Weakest topics: lowest mastery first (ties broken by curriculum order).
+  // Weakest topics: lowest mastery first. Only real curriculum topics (those
+  // with lessons) are actionable for the plan, so drop 'basics'/'vocab'.
+  const realTopics = new Set(TOPICS.map((t) => t.id));
   const weakest = Object.entries(masteryByTopic)
+    .filter(([topic]) => realTopics.has(topic))
     .sort((a, b) => a[1] - b[1])
     .map(([topic]) => topic);
 
@@ -99,6 +92,31 @@ export function seedProgress(
     };
   }
   return progress;
+}
+
+/**
+ * Merge a fresh placement result into EXISTING progress (used for retakes), so
+ * the learner keeps the practice mastery they've built. For topics the retake
+ * actually tested, blend the new estimate with the old; leave the rest as-is.
+ */
+export function mergeProgress(
+  prev: Record<string, TopicProgress>,
+  result: PlacementResult,
+): Record<string, TopicProgress> {
+  const next: Record<string, TopicProgress> = { ...prev };
+  for (const t of TOPICS) {
+    const tested = result.masteryByTopic[t.id];
+    if (tested === undefined) continue; // not re-tested → keep existing
+    const existing = prev[t.id];
+    if (!existing) {
+      next[t.id] = { mastery: tested, attempts: 0, correct: 0, lessonRead: false };
+    } else {
+      // Weight toward the newer signal, but don't erase prior practice.
+      const blended = Math.round(existing.mastery * 0.5 + tested * 0.5);
+      next[t.id] = { ...existing, mastery: Math.max(0, Math.min(100, blended)) };
+    }
+  }
+  return next;
 }
 
 /** Update a topic's progress after answering a practice exercise. */

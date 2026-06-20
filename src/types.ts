@@ -41,9 +41,9 @@ export const LEVEL_LABELS: Record<Level, string> = {
 // Plain, school-neutral level names (ACTFL-style) used everywhere by default,
 // so the app reads naturally for any learner — students or adults.
 export const LEVEL_PLAIN: Record<Level, string> = {
-  'novice-low': 'Novice · Low',
-  'novice-mid': 'Novice · Mid',
-  'novice-high': 'Novice · High',
+  'novice-low': 'Beginner · Low',
+  'novice-mid': 'Beginner · Mid',
+  'novice-high': 'Beginner · High',
   'intermediate-low': 'Intermediate · Low',
   'intermediate-mid': 'Intermediate · Mid',
   'intermediate-high': 'Intermediate · High',
@@ -242,16 +242,79 @@ export type Exercise =
 // Placement test
 // ---------------------------------------------------------------------------
 
-export interface PlacementQuestion {
+/** Broad skill area, used by the adaptive engine to sample a wide variety. */
+export type PlacementArea =
+  | 'basics'
+  | 'ser-estar'
+  | 'present'
+  | 'past'
+  | 'future'
+  | 'mood'
+  | 'usage'
+  | 'vocab';
+
+export const PLACEMENT_AREA_LABELS: Record<PlacementArea, string> = {
+  basics: 'Greetings & basics',
+  'ser-estar': 'Ser vs. estar',
+  present: 'Present tense',
+  past: 'Past tenses',
+  future: 'Future & conditional',
+  mood: 'Subjunctive & mood',
+  usage: 'Word choice',
+  vocab: 'Vocabulary',
+};
+
+interface PlacementBase {
   id: string;
+  /** Curriculum topic for weak-area mapping (or 'basics'/'vocab'). */
   topic: string;
+  /** Broad skill area for variety sampling. */
+  area: PlacementArea;
   level: Level;
+  /** Why the answer is correct — shown after answering. */
+  explanation: string;
+}
+
+export interface PlacementMC extends PlacementBase {
+  type: 'multiple-choice';
   prompt: string;
+  /** Optional English gloss / context. */
   english?: string;
   options: string[];
   answer: number;
-  explanation: string;
 }
+
+export interface PlacementListening extends PlacementBase {
+  type: 'listening';
+  /** Spanish text the app reads aloud. */
+  audioText: string;
+  prompt: string;
+  options: string[];
+  answer: number;
+}
+
+export interface PlacementFill extends PlacementBase {
+  type: 'fill-blank';
+  /** Sentence with exactly one "___" placeholder. */
+  prompt: string;
+  english?: string;
+  hint?: string;
+  accepted: string[];
+}
+
+export interface PlacementTranslate extends PlacementBase {
+  type: 'translate';
+  direction: 'en-es' | 'es-en';
+  /** The text to translate. */
+  prompt: string;
+  accepted: string[];
+}
+
+export type PlacementQuestion =
+  | PlacementMC
+  | PlacementListening
+  | PlacementFill
+  | PlacementTranslate;
 
 // ---------------------------------------------------------------------------
 // Study plan

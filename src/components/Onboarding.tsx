@@ -7,6 +7,9 @@ import { LevelGuide } from './LevelGuide';
 // What you can DO at each goal level — described in plain terms so the choice
 // makes sense to anyone, student or adult, regardless of school or test scores.
 const GOAL_BLURB: Partial<Record<Level, string>> = {
+  'novice-low': 'Say a few memorized words and set phrases (greetings, your name).',
+  'novice-mid': 'Use simple words and phrases on very familiar topics.',
+  'novice-high': 'Get through simple, predictable everyday exchanges.',
   'intermediate-low': 'Hold simple conversations on familiar, everyday topics.',
   'intermediate-mid': 'Handle everyday situations in sentences and short paragraphs.',
   'intermediate-high': 'Narrate and describe across past, present, and future fairly well.',
@@ -25,10 +28,9 @@ export function Onboarding() {
   const [weeks, setWeeks] = useState(state.weeks ?? 8);
   const [daysPerWeek, setDays] = useState(state.daysPerWeek ?? 5);
 
-  // Offer the full range from Intermediate up; learners pick what fits them.
-  const goalChoices = LEVELS.filter(
-    (l) => l.startsWith('intermediate') || l.startsWith('advanced'),
-  );
+  // Offer the full range — Beginner through Advanced — so anyone, at any
+  // starting point, can pick a goal that fits them.
+  const goalChoices = LEVELS;
 
   function submit() {
     if (!goal) return;

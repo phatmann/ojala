@@ -18,8 +18,11 @@ no account, no login, nothing to install for everyday use.
 
 - **Guided & goal-driven.** You choose the level you want to reach and how many
   weeks you have. ➜ *Goal screen*
-- **It tests you first.** An 18-question placement diagnostic figures out your
-  level and pinpoints your weak spots. ➜ *Placement test*
+- **It tests you first.** An *adaptive* placement diagnostic starts a couple
+  levels below your goal, samples a wide variety of skills to find your weak
+  spots, then narrows in on your level. It works for everyone — true beginners
+  get basic questions asked in English — and you can retake it anytime. ➜
+  *Placement test*
 - **It builds a plan.** A week-by-week schedule that front-loads your weak areas
   and gives stronger topics a lighter review. ➜ *Plan*
 - **Lessons that explain *why*.** Every lesson has "Why it works" insight boxes,

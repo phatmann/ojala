@@ -68,6 +68,18 @@ export function Settings() {
       </div>
 
       <div className="card">
+        <h2>Placement test</h2>
+        <p className="muted">
+          Retake the adaptive test anytime to re-check your level and weak
+          areas. Your practice progress is kept — you can choose whether to
+          rebuild your plan afterward.
+        </p>
+        <button className="btn" onClick={() => navigate('/placement')}>
+          ↺ Retake placement test
+        </button>
+      </div>
+
+      <div className="card">
         <h2>Speaking voice</h2>
         {!speechSupport.tts ? (
           <p className="muted">Text-to-speech isn't available in this browser.</p>

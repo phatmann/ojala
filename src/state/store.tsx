@@ -9,7 +9,7 @@ import {
 } from 'react';
 import type { AppState, Level, TopicProgress } from '../types';
 import { generatePlan } from './plan';
-import { applyAnswer, type PlacementResult, seedProgress } from './scoring';
+import { applyAnswer, mergeProgress, type PlacementResult, seedProgress } from './scoring';
 
 const STORAGE_KEY = 'ojala.state.v1';
 const STATE_VERSION = 1;
@@ -28,7 +28,7 @@ const initialState: AppState = {
 type Action =
   | { type: 'load'; state: AppState }
   | { type: 'setGoal'; name?: string; goalLevel: Level; weeks: number; daysPerWeek: number }
-  | { type: 'completePlacement'; result: PlacementResult }
+  | { type: 'completePlacement'; result: PlacementResult; retake?: boolean }
   | { type: 'buildPlan' }
   | { type: 'recordAnswer'; topic: string; correct: boolean }
   | { type: 'markLessonRead'; topic: string }
@@ -57,12 +57,18 @@ function reducer(state: AppState, action: Action): AppState {
       };
 
     case 'completePlacement': {
-      const progress = seedProgress(action.result);
+      // First time: seed fresh progress. Retake: merge so practice is kept.
+      const progress = action.retake
+        ? mergeProgress(state.progress, action.result)
+        : seedProgress(action.result);
       return {
         ...state,
         placementDone: true,
         estimatedLevel: action.result.estimatedLevel,
-        startLevel: action.result.estimatedLevel,
+        // Only reset the "starting point" on the very first placement.
+        startLevel: action.retake
+          ? (state.startLevel ?? action.result.estimatedLevel)
+          : action.result.estimatedLevel,
         progress,
       };
     }
@@ -142,7 +148,7 @@ function reducer(state: AppState, action: Action): AppState {
 interface StoreContextValue {
   state: AppState;
   setGoal: (name: string | undefined, goalLevel: Level, weeks: number, daysPerWeek: number) => void;
-  completePlacement: (result: PlacementResult) => void;
+  completePlacement: (result: PlacementResult, retake?: boolean) => void;
   buildPlan: () => void;
   recordAnswer: (topic: string, correct: boolean) => void;
   markLessonRead: (topic: string) => void;
@@ -183,7 +189,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     [],
   );
   const completePlacement = useCallback(
-    (result: PlacementResult) => dispatch({ type: 'completePlacement', result }),
+    (result: PlacementResult, retake?: boolean) =>
+      dispatch({ type: 'completePlacement', result, retake }),
     [],
   );
   const buildPlan = useCallback(() => dispatch({ type: 'buildPlan' }), []);

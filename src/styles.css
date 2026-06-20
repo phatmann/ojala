@@ -335,6 +335,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 /* --- Goal picker (tappable option cards) ---------------------------------- */
 .field-label { font-weight: 600; }
 .no-top { margin-top: 2px; }
+.mt { margin-top: 14px; }
 .goal-options { display: flex; flex-direction: column; gap: 10px; margin: 10px 0 6px; }
 .goal-option {
   display: flex; align-items: flex-start; gap: 12px; text-align: left; width: 100%;
