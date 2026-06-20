@@ -13,11 +13,11 @@ export function LevelGuide({ highlight }: Props) {
 
   return (
     <details className="level-guide">
-      <summary>Which level matches my class?</summary>
+      <summary>In a Spanish class? See which class each level ≈ matches (optional)</summary>
       <table className="conj-table">
         <thead>
           <tr>
-            <th>Proficiency level (AAPL/ACTFL)</th>
+            <th>Proficiency level</th>
             <th>≈ School class</th>
           </tr>
         </thead>

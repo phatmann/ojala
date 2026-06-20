@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { LEVELS, LEVEL_LABELS, LEVEL_COURSE, type Level } from '../types';
+import { LEVELS, LEVEL_PLAIN, type Level } from '../types';
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
 import { LevelGuide } from './LevelGuide';
 
-// One-line description of what each goal level means, to help the learner pick.
+// What you can DO at each goal level — described in plain terms so the choice
+// makes sense to anyone, student or adult, regardless of school or test scores.
 const GOAL_BLURB: Partial<Record<Level, string>> = {
   'intermediate-low': 'Hold simple conversations on familiar, everyday topics.',
   'intermediate-mid': 'Handle everyday situations in sentences and short paragraphs.',
@@ -13,8 +14,6 @@ const GOAL_BLURB: Partial<Record<Level, string>> = {
   'advanced-mid': 'Discuss abstract topics and deal with the unexpected.',
   'advanced-high': 'Communicate fluently and precisely — near-native range.',
 };
-
-const RECOMMENDED: Level = 'advanced-low';
 
 // Goal-setting: the learner chooses where they want to get to and by when.
 export function Onboarding() {
@@ -26,7 +25,7 @@ export function Onboarding() {
   const [weeks, setWeeks] = useState(state.weeks ?? 8);
   const [daysPerWeek, setDays] = useState(state.daysPerWeek ?? 5);
 
-  // Offer goals from Intermediate upward — that's where this learner lives.
+  // Offer the full range from Intermediate up; learners pick what fits them.
   const goalChoices = LEVELS.filter(
     (l) => l.startsWith('intermediate') || l.startsWith('advanced'),
   );
@@ -65,8 +64,9 @@ export function Onboarding() {
             <span className="muted">— tap the one you want to reach</span>
           </span>
           <p className="muted small no-top">
-            This is your <strong>goal</strong>, not your current level — the
-            placement test next will figure out where you are now.
+            Pick the description that matches where you'd like to get to. This is
+            your <strong>goal</strong> — the placement test next figures out
+            where you are now.
           </p>
 
           <div className="goal-options">
@@ -84,17 +84,9 @@ export function Onboarding() {
                     {selected ? '●' : '○'}
                   </span>
                   <span className="goal-text">
-                    <span className="goal-title">
-                      {LEVEL_LABELS[l]}
-                      <span className="goal-course">≈ {LEVEL_COURSE[l]}</span>
-                    </span>
-                    {GOAL_BLURB[l] && (
-                      <span className="muted small">{GOAL_BLURB[l]}</span>
-                    )}
+                    <span className="goal-title">{GOAL_BLURB[l]}</span>
+                    <span className="goal-level-tag">{LEVEL_PLAIN[l]}</span>
                   </span>
-                  {l === RECOMMENDED && (
-                    <span className="rec-pill">★ Recommended</span>
-                  )}
                 </button>
               );
             })}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
-import { LEVELS, levelOptionLabel, type Level } from '../types';
+import { LEVELS, LEVEL_PLAIN, type Level } from '../types';
 import { loadVoices, speak, speechSupport } from '../lib/speech';
 import { LevelGuide } from './LevelGuide';
 
@@ -44,7 +44,7 @@ export function Settings() {
           <select className="select" value={goal} onChange={(e) => setGoalLevel(e.target.value as Level)}>
             {LEVELS.filter((l) => !l.startsWith('novice')).map((l) => (
               <option key={l} value={l}>
-                {levelOptionLabel(l)}
+                {LEVEL_PLAIN[l]}
               </option>
             ))}
           </select>

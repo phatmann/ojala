@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { PLACEMENT } from '../data/placement';
 import { scorePlacement, type PlacementResult } from '../state/scoring';
-import { LEVEL_LABELS, LEVEL_COURSE } from '../types';
+import { LEVEL_PLAIN } from '../types';
 import { TOPIC_BY_ID } from '../data/topics';
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
@@ -138,8 +138,7 @@ function Results({
         </p>
         <p>
           Estimated level:{' '}
-          <strong className="accent">{LEVEL_LABELS[result.estimatedLevel]}</strong>
-          <span className="muted"> · ≈ {LEVEL_COURSE[result.estimatedLevel]}</span>
+          <strong className="accent">{LEVEL_PLAIN[result.estimatedLevel]}</strong>
         </p>
 
         {weak.length > 0 ? (

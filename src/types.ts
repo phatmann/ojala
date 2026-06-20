@@ -38,9 +38,23 @@ export const LEVEL_LABELS: Record<Level, string> = {
   'advanced-high': 'Advanced 3 (High)',
 };
 
-// Approximate mapping from each proficiency level to the typical US
-// high-school Spanish course. Exact placement varies by school — these are a
-// guide, calibrated to AAPL Intermediate 2/3 landing a student in Spanish 4.
+// Plain, school-neutral level names (ACTFL-style) used everywhere by default,
+// so the app reads naturally for any learner — students or adults.
+export const LEVEL_PLAIN: Record<Level, string> = {
+  'novice-low': 'Novice · Low',
+  'novice-mid': 'Novice · Mid',
+  'novice-high': 'Novice · High',
+  'intermediate-low': 'Intermediate · Low',
+  'intermediate-mid': 'Intermediate · Mid',
+  'intermediate-high': 'Intermediate · High',
+  'advanced-low': 'Advanced · Low',
+  'advanced-mid': 'Advanced · Mid',
+  'advanced-high': 'Advanced · High',
+};
+
+// OPTIONAL reference only: approximate mapping from each level to a typical US
+// high-school Spanish course, for students who find it helpful. Never the
+// primary framing. Exact placement varies by school.
 export const LEVEL_COURSE: Record<Level, string> = {
   'novice-low': 'Spanish 1 (start)',
   'novice-mid': 'Spanish 1',
@@ -55,11 +69,6 @@ export const LEVEL_COURSE: Record<Level, string> = {
 
 export function levelIndex(l: Level): number {
   return LEVELS.indexOf(l);
-}
-
-/** Combined label for pickers, e.g. "Intermediate 3 (High) · ≈ Spanish 4". */
-export function levelOptionLabel(l: Level): string {
-  return `${LEVEL_LABELS[l]} · ≈ ${LEVEL_COURSE[l]}`;
 }
 
 // ---------------------------------------------------------------------------

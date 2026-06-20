@@ -1,6 +1,6 @@
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
-import { LEVEL_LABELS } from '../types';
+import { LEVEL_PLAIN } from '../types';
 import { planProgress } from '../state/plan';
 import { SessionRow } from './Dashboard';
 
@@ -32,7 +32,7 @@ export function PlanView() {
       </button>
       <h1>Your study plan</h1>
       <p className="muted">
-        {LEVEL_LABELS[plan.startLevel]} → <strong>{LEVEL_LABELS[plan.goalLevel]}</strong> ·{' '}
+        {LEVEL_PLAIN[plan.startLevel]} → <strong>{LEVEL_PLAIN[plan.goalLevel]}</strong> ·{' '}
         {plan.weeks} weeks · {plan.daysPerWeek} days/week · {prog.done}/{prog.total} done
       </p>
 
