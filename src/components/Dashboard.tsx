@@ -1,6 +1,6 @@
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
-import { LEVEL_LABELS, SESSION_KIND_LABELS, type PlanSession } from '../types';
+import { LEVEL_LABELS, LEVEL_COURSE, SESSION_KIND_LABELS, type PlanSession } from '../types';
 import { TOPIC_BY_ID } from '../data/topics';
 import { planProgress } from '../state/plan';
 
@@ -34,7 +34,7 @@ export function Dashboard() {
         <div>
           <h1>{greeting}</h1>
           <p className="muted">
-            Goal: <strong>{LEVEL_LABELS[plan.goalLevel]}</strong> in {plan.weeks} weeks
+            Goal: <strong>{LEVEL_LABELS[plan.goalLevel]}</strong> (≈ {LEVEL_COURSE[plan.goalLevel]}) in {plan.weeks} weeks
             {state.estimatedLevel && (
               <> · Starting from {LEVEL_LABELS[state.estimatedLevel]}</>
             )}

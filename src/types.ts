@@ -38,8 +38,28 @@ export const LEVEL_LABELS: Record<Level, string> = {
   'advanced-high': 'Advanced 3 (High)',
 };
 
+// Approximate mapping from each proficiency level to the typical US
+// high-school Spanish course. Exact placement varies by school — these are a
+// guide, calibrated to AAPL Intermediate 2/3 landing a student in Spanish 4.
+export const LEVEL_COURSE: Record<Level, string> = {
+  'novice-low': 'Spanish 1 (start)',
+  'novice-mid': 'Spanish 1',
+  'novice-high': 'Spanish 1–2',
+  'intermediate-low': 'Spanish 2–3',
+  'intermediate-mid': 'Spanish 3–4',
+  'intermediate-high': 'Spanish 4',
+  'advanced-low': 'Spanish 5 / AP',
+  'advanced-mid': 'AP / college',
+  'advanced-high': 'College / near-native',
+};
+
 export function levelIndex(l: Level): number {
   return LEVELS.indexOf(l);
+}
+
+/** Combined label for pickers, e.g. "Intermediate 3 (High) · ≈ Spanish 4". */
+export function levelOptionLabel(l: Level): string {
+  return `${LEVEL_LABELS[l]} · ≈ ${LEVEL_COURSE[l]}`;
 }
 
 // ---------------------------------------------------------------------------

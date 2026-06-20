@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
-import { LEVELS, LEVEL_LABELS, type Level } from '../types';
+import { LEVELS, levelOptionLabel, type Level } from '../types';
 import { loadVoices, speak, speechSupport } from '../lib/speech';
+import { LevelGuide } from './LevelGuide';
 
 // Adjust the goal/plan, tune the speaking voice, and reset progress.
 export function Settings() {
@@ -39,14 +40,15 @@ export function Settings() {
       <div className="card">
         <h2>Goal &amp; plan</h2>
         <label className="field">
-          <span>Target level</span>
+          <span>Target level <span className="muted">(your goal)</span></span>
           <select className="select" value={goal} onChange={(e) => setGoalLevel(e.target.value as Level)}>
             {LEVELS.filter((l) => !l.startsWith('novice')).map((l) => (
               <option key={l} value={l}>
-                {LEVEL_LABELS[l]}
+                {levelOptionLabel(l)}
               </option>
             ))}
           </select>
+          <LevelGuide highlight={goal} />
         </label>
         <label className="field">
           <span>Weeks: <strong>{weeks}</strong></span>

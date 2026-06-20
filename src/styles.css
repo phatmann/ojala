@@ -332,6 +332,17 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 .lib-category { margin: 18px 0; }
 .listen-block { margin: 8px 0; }
 
+/* --- Level guide ---------------------------------------------------------- */
+.level-guide { margin-top: 10px; }
+.level-guide summary {
+  cursor: pointer; color: var(--primary); font-size: 0.9rem; font-weight: 600;
+  padding: 4px 0; list-style: revert;
+}
+.level-guide summary:hover { text-decoration: underline; }
+.level-guide table { margin-top: 10px; font-size: 0.9rem; }
+.level-guide .highlight td { background: rgba(255,180,84,0.16); color: var(--text); }
+.level-guide .highlight td.rowhead { color: var(--accent); font-weight: 700; }
+
 @media (max-width: 560px) {
   .nav-label { display: none; }
   .stat-grid, .quick-links { grid-template-columns: 1fr 1fr; }

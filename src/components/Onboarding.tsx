@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { LEVELS, LEVEL_LABELS, type Level } from '../types';
+import { LEVELS, LEVEL_COURSE, levelOptionLabel, type Level } from '../types';
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
+import { LevelGuide } from './LevelGuide';
 
 // Goal-setting: the learner chooses where they want to get to and by when.
 export function Onboarding() {
@@ -42,7 +43,7 @@ export function Onboarding() {
         </label>
 
         <label className="field">
-          <span>Where do you want to get to?</span>
+          <span>Which level do you want to reach? <span className="muted">(your goal)</span></span>
           <select
             className="select"
             value={goal}
@@ -50,13 +51,15 @@ export function Onboarding() {
           >
             {goalChoices.map((l) => (
               <option key={l} value={l}>
-                {LEVEL_LABELS[l]}
+                {levelOptionLabel(l)}
               </option>
             ))}
           </select>
           <span className="muted small">
-            These map to the ACTFL / AAPL levels used by your placement test.
+            Pick where you want to <em>get to</em> — ≈ {LEVEL_COURSE[goal]} in school.
+            The placement test will find where you are <em>now</em>.
           </span>
+          <LevelGuide highlight={goal} />
         </label>
 
         <label className="field">
