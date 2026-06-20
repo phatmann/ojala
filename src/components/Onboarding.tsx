@@ -1,21 +1,38 @@
 import { useState } from 'react';
-import { LEVELS, LEVEL_COURSE, levelOptionLabel, type Level } from '../types';
+import { LEVELS, LEVEL_LABELS, LEVEL_COURSE, type Level } from '../types';
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
 import { LevelGuide } from './LevelGuide';
+
+// One-line description of what each goal level means, to help the learner pick.
+const GOAL_BLURB: Partial<Record<Level, string>> = {
+  'intermediate-low': 'Hold simple conversations on familiar, everyday topics.',
+  'intermediate-mid': 'Handle everyday situations in sentences and short paragraphs.',
+  'intermediate-high': 'Narrate and describe across past, present, and future fairly well.',
+  'advanced-low': 'Tell full stories and handle most situations with ease.',
+  'advanced-mid': 'Discuss abstract topics and deal with the unexpected.',
+  'advanced-high': 'Communicate fluently and precisely — near-native range.',
+};
+
+const RECOMMENDED: Level = 'advanced-low';
 
 // Goal-setting: the learner chooses where they want to get to and by when.
 export function Onboarding() {
   const { state, setGoal } = useStore();
   const [name, setName] = useState(state.learnerName ?? '');
-  const [goal, setGoalLevel] = useState<Level>(state.goalLevel ?? 'advanced-low');
+  // Start with no level chosen so the screen invites a choice instead of
+  // appearing to assign one. (Keeps an earlier choice if reconfiguring.)
+  const [goal, setGoalLevel] = useState<Level | null>(state.goalLevel ?? null);
   const [weeks, setWeeks] = useState(state.weeks ?? 8);
   const [daysPerWeek, setDays] = useState(state.daysPerWeek ?? 5);
 
   // Offer goals from Intermediate upward — that's where this learner lives.
-  const goalChoices = LEVELS.filter((l) => l.startsWith('intermediate') || l.startsWith('advanced'));
+  const goalChoices = LEVELS.filter(
+    (l) => l.startsWith('intermediate') || l.startsWith('advanced'),
+  );
 
   function submit() {
+    if (!goal) return;
     setGoal(name.trim() || undefined, goal, weeks, daysPerWeek);
     navigate('/placement');
   }
@@ -42,25 +59,49 @@ export function Onboarding() {
           />
         </label>
 
-        <label className="field">
-          <span>Which level do you want to reach? <span className="muted">(your goal)</span></span>
-          <select
-            className="select"
-            value={goal}
-            onChange={(e) => setGoalLevel(e.target.value as Level)}
-          >
-            {goalChoices.map((l) => (
-              <option key={l} value={l}>
-                {levelOptionLabel(l)}
-              </option>
-            ))}
-          </select>
-          <span className="muted small">
-            Pick where you want to <em>get to</em> — ≈ {LEVEL_COURSE[goal]} in school.
-            The placement test will find where you are <em>now</em>.
+        <div className="field">
+          <span className="field-label">
+            Which level are you aiming for?{' '}
+            <span className="muted">— tap the one you want to reach</span>
           </span>
-          <LevelGuide highlight={goal} />
-        </label>
+          <p className="muted small no-top">
+            This is your <strong>goal</strong>, not your current level — the
+            placement test next will figure out where you are now.
+          </p>
+
+          <div className="goal-options">
+            {goalChoices.map((l) => {
+              const selected = goal === l;
+              return (
+                <button
+                  key={l}
+                  type="button"
+                  className={`goal-option ${selected ? 'selected' : ''}`}
+                  aria-pressed={selected}
+                  onClick={() => setGoalLevel(l)}
+                >
+                  <span className="goal-radio" aria-hidden>
+                    {selected ? '●' : '○'}
+                  </span>
+                  <span className="goal-text">
+                    <span className="goal-title">
+                      {LEVEL_LABELS[l]}
+                      <span className="goal-course">≈ {LEVEL_COURSE[l]}</span>
+                    </span>
+                    {GOAL_BLURB[l] && (
+                      <span className="muted small">{GOAL_BLURB[l]}</span>
+                    )}
+                  </span>
+                  {l === RECOMMENDED && (
+                    <span className="rec-pill">★ Recommended</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          <LevelGuide highlight={goal ?? undefined} />
+        </div>
 
         <label className="field">
           <span>
@@ -88,8 +129,10 @@ export function Onboarding() {
           />
         </label>
 
-        <button className="btn primary big" onClick={submit}>
-          Next: take the placement test →
+        <button className="btn primary big" disabled={!goal} onClick={submit}>
+          {goal
+            ? 'Next: take the placement test →'
+            : 'Pick a goal level to continue'}
         </button>
       </div>
     </div>

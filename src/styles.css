@@ -332,6 +332,32 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 .lib-category { margin: 18px 0; }
 .listen-block { margin: 8px 0; }
 
+/* --- Goal picker (tappable option cards) ---------------------------------- */
+.field-label { font-weight: 600; }
+.no-top { margin-top: 2px; }
+.goal-options { display: flex; flex-direction: column; gap: 10px; margin: 10px 0 6px; }
+.goal-option {
+  display: flex; align-items: flex-start; gap: 12px; text-align: left; width: 100%;
+  cursor: pointer; font: inherit; color: var(--text);
+  background: var(--card-2); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  transition: border-color 0.12s, background 0.12s, transform 0.05s;
+}
+.goal-option:hover { border-color: var(--primary); }
+.goal-option:active { transform: translateY(1px); }
+.goal-option.selected { border-color: var(--accent); background: rgba(255,180,84,0.12); }
+.goal-radio { font-size: 1.1rem; color: var(--dim); line-height: 1.4; }
+.goal-option.selected .goal-radio { color: var(--accent); }
+.goal-text { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.goal-title { font-weight: 700; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.goal-course { font-size: 0.82rem; font-weight: 600; color: var(--accent); }
+.rec-pill {
+  align-self: center; white-space: nowrap; font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.3px; color: #1a1300;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  padding: 4px 9px; border-radius: 999px;
+}
+
 /* --- Level guide ---------------------------------------------------------- */
 .level-guide { margin-top: 10px; }
 .level-guide summary {

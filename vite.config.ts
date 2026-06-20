@@ -6,4 +6,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: './',
   plugins: [react()],
+  define: {
+    // A build stamp surfaced in the footer so it's easy to tell whether the
+    // browser is showing the latest deploy or a cached copy.
+    __BUILD_TIME__: JSON.stringify(
+      new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC',
+    ),
+  },
 });

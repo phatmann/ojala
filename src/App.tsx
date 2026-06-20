@@ -30,7 +30,9 @@ export function App() {
       <main>{renderRoute(top, route.segments)}</main>
       <footer className="app-footer">
         <span>Ojalá · guided Spanish practice</span>
-        <span className="muted small">Your progress is saved on this device.</span>
+        <span className="muted small">
+          Your progress is saved on this device. · Build {__BUILD_TIME__}
+        </span>
       </footer>
     </div>
   );
