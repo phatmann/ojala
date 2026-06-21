@@ -10,6 +10,7 @@ const CATEGORY_PRIORITY: Record<string, number> = {
   future: 2,
   mood: 3,
   usage: 4,
+  conversation: 5,
 };
 
 interface GenerateArgs {

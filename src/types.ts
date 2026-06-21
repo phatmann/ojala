@@ -80,7 +80,8 @@ export type TopicCategory =
   | 'past'
   | 'future'
   | 'mood'
-  | 'usage';
+  | 'usage'
+  | 'conversation';
 
 export const CATEGORY_LABELS: Record<TopicCategory, string> = {
   foundations: 'Foundations',
@@ -88,6 +89,7 @@ export const CATEGORY_LABELS: Record<TopicCategory, string> = {
   future: 'Talking about the future',
   mood: 'Mood: indicative vs. subjunctive',
   usage: 'Word choice & usage',
+  conversation: 'Conversation & speaking',
 };
 
 export interface Topic {
@@ -147,7 +149,8 @@ export type ExerciseType =
   | 'translate'
   | 'reorder'
   | 'listening'
-  | 'speaking';
+  | 'speaking'
+  | 'open-response';
 
 export const EXERCISE_TYPE_LABELS: Record<ExerciseType, string> = {
   'multiple-choice': 'Multiple choice',
@@ -157,6 +160,7 @@ export const EXERCISE_TYPE_LABELS: Record<ExerciseType, string> = {
   reorder: 'Build the sentence',
   listening: 'Listening',
   speaking: 'Speaking',
+  'open-response': 'Conversation',
 };
 
 interface ExerciseBase {
@@ -229,6 +233,19 @@ export interface SpeakingExercise extends ExerciseBase {
   english?: string;
 }
 
+export interface OpenResponseExercise extends ExerciseBase {
+  type: 'open-response';
+  /** An open-ended question, in Spanish (the app also reads it aloud). */
+  prompt: string;
+  /** English translation of the question. */
+  english?: string;
+  /** Useful phrases / sentence starters to scaffold a spontaneous answer. */
+  starters?: string[];
+  /** A model answer to compare against (there is no single correct answer). */
+  sample: string;
+  sampleEn?: string;
+}
+
 export type Exercise =
   | MultipleChoiceExercise
   | FillBlankExercise
@@ -236,7 +253,8 @@ export type Exercise =
   | TranslateExercise
   | ReorderExercise
   | ListeningExercise
-  | SpeakingExercise;
+  | SpeakingExercise
+  | OpenResponseExercise;
 
 // ---------------------------------------------------------------------------
 // Placement test

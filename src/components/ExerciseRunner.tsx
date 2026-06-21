@@ -43,11 +43,15 @@ export function ExerciseRunner({ exercise, onComplete, index, total }: Props) {
       <Body exercise={exercise} answered={answered} onAnswer={finish} />
 
       {answered && (
-        <div className={`feedback ${correct ? 'ok' : 'no'}`}>
+        <div className={`feedback ${exercise.type === 'open-response' ? 'ok' : correct ? 'ok' : 'no'}`}>
           <div className="feedback-title">
-            {correct ? '✓ Correct!' : '✗ Not quite'}
+            {exercise.type === 'open-response'
+              ? '💬 Good practice!'
+              : correct
+                ? '✓ Correct!'
+                : '✗ Not quite'}
           </div>
-          <div className="why-label">Why</div>
+          <div className="why-label">{exercise.type === 'open-response' ? 'Tip' : 'Why'}</div>
           <Markdown text={exercise.explanation} />
           <button className="btn primary" onClick={() => onComplete(correct)}>
             Continue →
@@ -79,6 +83,8 @@ function Body({ exercise, answered, onAnswer }: BodyProps) {
       return <ReorderBody exercise={exercise} answered={answered} onAnswer={onAnswer} />;
     case 'speaking':
       return <SpeakingBody exercise={exercise} answered={answered} onAnswer={onAnswer} />;
+    case 'open-response':
+      return <OpenResponseBody exercise={exercise} answered={answered} onAnswer={onAnswer} />;
   }
 }
 
@@ -429,6 +435,121 @@ function SpeakingBody({ exercise, answered, onAnswer }: BodyProps) {
               </button>
             </>
           )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// --- Open response (conversation) ------------------------------------------
+
+function OpenResponseBody({ exercise, answered, onAnswer }: BodyProps) {
+  const ex = exercise as Extract<Exercise, { type: 'open-response' }>;
+  const [text, setText] = useState('');
+  const [listening, setListening] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const handleRef = useRef<ListenHandle | null>(null);
+
+  function startMic() {
+    setError(null);
+    setListening(true);
+    handleRef.current = listen({
+      lang: 'es-ES',
+      onResult: (t, isFinal) => {
+        if (isFinal) setText((prev) => (prev ? prev + ' ' : '') + t);
+      },
+      onError: (e) => {
+        setError(
+          e === 'not-allowed'
+            ? 'Microphone permission was blocked. You can type your answer instead.'
+            : "Couldn't hear that — try again, or type your answer.",
+        );
+        setListening(false);
+      },
+      onEnd: () => setListening(false),
+    });
+    if (!handleRef.current) {
+      setError('Speech recognition isn\'t available here — type your answer instead.');
+      setListening(false);
+    }
+  }
+  function stopMic() {
+    handleRef.current?.stop();
+    setListening(false);
+  }
+
+  const hasResponse = text.trim().length > 0 || revealed;
+
+  return (
+    <div>
+      <p className="prompt q">💬 Answer in your own words:</p>
+      <div className="speaking-target">
+        <span className="target-text">{ex.prompt}</span>
+        <SpeakButton text={ex.prompt} label="Hear it" />
+      </div>
+      {ex.english && <p className="muted">{ex.english}</p>}
+
+      {ex.starters && ex.starters.length > 0 && (
+        <div className="starters">
+          <span className="muted small">Useful starters:</span>
+          {ex.starters.map((s, i) => (
+            <span key={i} className="starter-chip">{s}</span>
+          ))}
+        </div>
+      )}
+
+      {speechSupport.stt && !answered && (
+        <div className="mic-area">
+          {!listening ? (
+            <button className="btn mic" onClick={startMic}>
+              🎙 {text ? 'Speak more' : 'Speak your answer'}
+            </button>
+          ) : (
+            <button className="btn mic recording" onClick={stopMic}>
+              ■ Stop · listening…
+            </button>
+          )}
+        </div>
+      )}
+
+      <textarea
+        className="text-input open-input"
+        value={text}
+        disabled={answered}
+        placeholder={speechSupport.stt ? '…or type your answer here' : 'Type your answer here'}
+        rows={3}
+        onChange={(e) => setText(e.target.value)}
+      />
+      {error && <p className="error">{error}</p>}
+
+      {!revealed ? (
+        <button className="btn ghost" onClick={() => setRevealed(true)}>
+          👁 Show a model answer
+        </button>
+      ) : (
+        <div className="example">
+          <span className="muted small">One way to answer:</span>
+          <div className="example-main">
+            <span className="es">{ex.sample}</span>
+            <SpeakButton text={ex.sample} label="Hear it" />
+          </div>
+          {ex.sampleEn && <div className="en muted">{ex.sampleEn}</div>}
+        </div>
+      )}
+
+      {!answered && (
+        <div className="row mt">
+          <button
+            className="btn primary"
+            disabled={!hasResponse}
+            onClick={() => onAnswer(true)}
+          >
+            I answered it 👍
+          </button>
+          <button className="btn ghost" onClick={() => onAnswer(false)}>
+            Need more practice
+          </button>
         </div>
       )}
     </div>

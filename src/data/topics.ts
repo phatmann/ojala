@@ -127,6 +127,15 @@ export const TOPICS: Topic[] = [
     summary: 'Telling people what to do — and why most commands borrow subjunctive forms.',
     prerequisites: ['subjunctive-present'],
   },
+  {
+    id: 'past-subjunctive',
+    title: 'The Past Subjunctive & "if" clauses',
+    shortTitle: 'Past subj. / si',
+    category: 'mood',
+    level: 'advanced-mid',
+    summary: 'The imperfect subjunctive and contrary-to-fact "Si tuviera…, viajaría" sentences.',
+    prerequisites: ['subjunctive-present', 'conditional'],
+  },
 
   // --- Usage ---------------------------------------------------------------
   {
@@ -137,6 +146,44 @@ export const TOPICS: Topic[] = [
     level: 'intermediate-high',
     summary: 'Two words for "for": cause/exchange vs. goal/destination.',
     prerequisites: [],
+  },
+
+  // --- Conversation & speaking (Advanced) ---------------------------------
+  {
+    id: 'conversation-everyday',
+    title: 'Conversation: everyday questions',
+    shortTitle: 'Chat: everyday',
+    category: 'conversation',
+    level: 'advanced-low',
+    summary: 'Answer common questions out loud, in the moment — about you, your day, your plans.',
+    prerequisites: [],
+  },
+  {
+    id: 'conversation-narrate',
+    title: 'Conversation: telling a story',
+    shortTitle: 'Chat: narrate',
+    category: 'conversation',
+    level: 'advanced-mid',
+    summary: 'Narrate past events in connected paragraphs — review of preterite vs. imperfect in real use.',
+    prerequisites: ['preterite-vs-imperfect'],
+  },
+  {
+    id: 'conversation-opinions',
+    title: 'Conversation: opinions & connectors',
+    shortTitle: 'Chat: opinions',
+    category: 'conversation',
+    level: 'advanced-mid',
+    summary: 'Give opinions, agree/disagree, and link ideas with natural connectors.',
+    prerequisites: ['subjunctive-uses'],
+  },
+  {
+    id: 'conversation-hypothetical',
+    title: 'Conversation: hypotheticals & the unexpected',
+    shortTitle: 'Chat: what if',
+    category: 'conversation',
+    level: 'advanced-high',
+    summary: 'Handle "what would you do if…" and react to surprising situations on the spot.',
+    prerequisites: ['past-subjunctive'],
   },
 ];
 

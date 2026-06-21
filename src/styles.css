@@ -222,6 +222,14 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 .score.no { color: var(--bad); }
 .error { color: var(--bad); }
 
+/* open response (conversation) */
+.starters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+.starter-chip {
+  font-size: 0.85rem; background: rgba(108,140,255,0.14); color: #aab9ff;
+  border: 1px solid rgba(108,140,255,0.3); border-radius: 999px; padding: 5px 11px;
+}
+.open-input { margin: 10px 0; resize: vertical; min-height: 70px; font-family: inherit; }
+
 /* feedback */
 .feedback { border-radius: 12px; padding: 16px; margin-top: 16px; border: 1px solid var(--border); }
 .feedback.ok { background: var(--good-bg); border-color: rgba(70,211,154,0.3); }

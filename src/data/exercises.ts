@@ -485,6 +485,152 @@ export const EXERCISES: Exercise[] = [
     options: ['por', 'para'], answer: 0,
     explanation: 'Exchange/price ("in exchange for") → por.',
   },
+
+  // =========================================================================
+  // PAST SUBJUNCTIVE & "SI" CLAUSES
+  // =========================================================================
+  {
+    id: 'ps-1', topic: 'past-subjunctive', type: 'conjugate', difficulty: 4,
+    verb: 'tener', subject: 'yo', tense: 'past (imperfect) subjunctive',
+    accepted: ['tuviera', 'tuviese'],
+    explanation: 'From the preterite ellos form "tuvieron": tuvie- + -ra = tuviera. (The -se form, tuviese, is also correct.)',
+  },
+  {
+    id: 'ps-2', topic: 'past-subjunctive', type: 'fill-blank', difficulty: 4,
+    prompt: 'Si yo ___ tiempo, viajaría más. (tener)',
+    english: 'If I had time, I would travel more.', hint: 'tener — past subjunctive, yo',
+    accepted: ['tuviera', 'tuviese'],
+    explanation: 'Contrary-to-fact "si": Si + past subjunctive (tuviera), + conditional (viajaría).',
+  },
+  {
+    id: 'ps-3', topic: 'past-subjunctive', type: 'multiple-choice', difficulty: 4,
+    prompt: 'Choose: "Si ___ tú, estudiaría más."',
+    options: ['fuera', 'soy', 'era', 'sería'], answer: 0,
+    explanation: '"If I were you…" is hypothetical → past subjunctive: Si fuera tú, …',
+  },
+  {
+    id: 'ps-4', topic: 'past-subjunctive', type: 'multiple-choice', difficulty: 5,
+    prompt: 'Which "if" is a REAL possibility (indicative), not hypothetical?',
+    options: ['Si tengo tiempo, te llamo.', 'Si tuviera tiempo, te llamaría.'], answer: 0,
+    explanation: 'A real, possible condition stays indicative (Si tengo…, te llamo). The unreal one uses past subjunctive + conditional.',
+  },
+  {
+    id: 'ps-5', topic: 'past-subjunctive', type: 'speaking', difficulty: 4,
+    prompt: 'Say in Spanish: "If I had more time, I would read more."',
+    target: 'Si tuviera más tiempo, leería más',
+    english: 'If I had more time, I would read more.',
+    explanation: 'Si + past subjunctive (tuviera) + conditional (leería).',
+  },
+
+  // =========================================================================
+  // CONVERSATION: EVERYDAY QUESTIONS
+  // =========================================================================
+  {
+    id: 'ce-1', topic: 'conversation-everyday', type: 'open-response', difficulty: 3,
+    prompt: '¿Qué te gusta hacer en tu tiempo libre?',
+    english: 'What do you like to do in your free time?',
+    starters: ['En mi tiempo libre…', 'Me gusta…', 'Normalmente…'],
+    sample: 'En mi tiempo libre, me gusta leer, escuchar música y salir con mis amigos los fines de semana.',
+    sampleEn: 'In my free time, I like to read, listen to music, and go out with my friends on weekends.',
+    explanation: 'Aim for two or three full sentences. Start with a phrase to buy time, then add details (what, when, with whom).',
+  },
+  {
+    id: 'ce-2', topic: 'conversation-everyday', type: 'open-response', difficulty: 4,
+    prompt: '¿Cómo fue tu fin de semana? Cuéntame algo que hiciste.',
+    english: 'How was your weekend? Tell me something you did.',
+    starters: ['Fue…', 'El sábado…', 'Lo mejor fue…'],
+    sample: 'Fue muy bueno. El sábado fui al cine con mi familia y el domingo descansé en casa.',
+    sampleEn: 'It was great. On Saturday I went to the movies with my family, and on Sunday I rested at home.',
+    explanation: 'A past-tense question → answer in the past. Use the preterite for what you did (fui, descansé).',
+  },
+  {
+    id: 'ce-3', topic: 'conversation-everyday', type: 'open-response', difficulty: 4,
+    prompt: '¿Qué vas a hacer este verano?',
+    english: 'What are you going to do this summer?',
+    starters: ['Voy a…', 'Este verano…', 'Espero…'],
+    sample: 'Este verano voy a estudiar más español y, si puedo, voy a visitar a mi familia en Costa Rica.',
+    sampleEn: "This summer I'm going to study more Spanish and, if I can, visit my family in Costa Rica.",
+    explanation: 'A future question → use "ir a + infinitive" or the future tense.',
+  },
+
+  // =========================================================================
+  // CONVERSATION: TELLING A STORY
+  // =========================================================================
+  {
+    id: 'cn-1', topic: 'conversation-narrate', type: 'open-response', difficulty: 4,
+    prompt: 'Cuéntame sobre un día que recuerdas muy bien. ¿Qué pasó?',
+    english: 'Tell me about a day you remember well. What happened?',
+    starters: ['Era…', 'Un día…', 'De repente…', 'Al final…'],
+    sample: 'Era un día de verano y hacía mucho calor. Fui a la playa con mis amigos. De repente, empezó a llover, pero al final nos reímos mucho.',
+    sampleEn: 'It was a summer day and very hot. I went to the beach with my friends. Suddenly, it started to rain, but in the end we laughed a lot.',
+    explanation: 'Set the scene with the imperfect (era, hacía), then the events with the preterite (fui, empezó). Use connectors like "de repente" and "al final".',
+  },
+  {
+    id: 'cn-2', topic: 'conversation-narrate', type: 'open-response', difficulty: 5,
+    prompt: 'Describe la última vez que viajaste o saliste con amigos.',
+    english: 'Describe the last time you traveled or went out with friends.',
+    starters: ['La última vez…', 'Primero…', 'Luego…', 'Lo mejor fue que…'],
+    sample: 'La última vez que salí con mis amigos, fuimos a un restaurante. Primero comimos, luego caminamos por el centro y lo mejor fue que vimos un concierto en la calle.',
+    sampleEn: 'The last time I went out with my friends, we went to a restaurant. First we ate, then we walked around downtown, and the best part was that we saw a concert in the street.',
+    explanation: 'Chain the events with the preterite and sequence connectors (primero, luego). Keep it flowing for several sentences.',
+  },
+
+  // =========================================================================
+  // CONVERSATION: OPINIONS & CONNECTORS
+  // =========================================================================
+  {
+    id: 'co-1', topic: 'conversation-opinions', type: 'multiple-choice', difficulty: 4,
+    prompt: 'Choose: "No creo que ___ buena idea salir tan tarde."',
+    options: ['sea', 'es'], answer: 0,
+    explanation: '"No creo que" expresses doubt → subjunctive: sea. (A plain "Creo que es…" would be indicative.)',
+  },
+  {
+    id: 'co-2', topic: 'conversation-opinions', type: 'open-response', difficulty: 4,
+    prompt: '¿Crees que es importante aprender otros idiomas? ¿Por qué?',
+    english: 'Do you think it is important to learn other languages? Why?',
+    starters: ['Creo que…', 'En mi opinión…', 'Por ejemplo…', 'Además…'],
+    sample: 'Creo que sí es muy importante, porque te ayuda a conocer otras culturas. Además, por ejemplo, puedes hacer amigos en otros países.',
+    sampleEn: 'I think it really is important, because it helps you get to know other cultures. Besides, for example, you can make friends in other countries.',
+    explanation: 'State your opinion (Creo que…), give a reason (porque…), and add support with a connector (además, por ejemplo).',
+  },
+  {
+    id: 'co-3', topic: 'conversation-opinions', type: 'open-response', difficulty: 5,
+    prompt: 'Algunas personas dicen que los exámenes no son justos. ¿Estás de acuerdo?',
+    english: 'Some people say exams are not fair. Do you agree?',
+    starters: ['Estoy de acuerdo…', 'No estoy de acuerdo…', 'Depende…', 'Sin embargo…'],
+    sample: 'Depende. En parte estoy de acuerdo, porque a veces son muy largos. Sin embargo, creo que son necesarios para aprender.',
+    sampleEn: "It depends. I partly agree, because sometimes they're very long. However, I think they're necessary in order to learn.",
+    explanation: 'Take a position (estoy de acuerdo / depende), then contrast with "sin embargo" to sound balanced and advanced.',
+  },
+
+  // =========================================================================
+  // CONVERSATION: HYPOTHETICALS & THE UNEXPECTED
+  // =========================================================================
+  {
+    id: 'ch-1', topic: 'conversation-hypothetical', type: 'open-response', difficulty: 5,
+    prompt: '¿Qué harías si te ganaras la lotería?',
+    english: 'What would you do if you won the lottery?',
+    starters: ['Si me ganara la lotería…', 'Primero…', 'También…'],
+    sample: 'Si me ganara la lotería, primero viajaría por el mundo y después ayudaría a mi familia. También guardaría una parte para el futuro.',
+    sampleEn: 'If I won the lottery, first I would travel the world and then I would help my family. I would also save some for the future.',
+    explanation: 'Use the hypothetical frame: Si + past subjunctive (ganara) + conditional (viajaría, ayudaría).',
+  },
+  {
+    id: 'ch-2', topic: 'conversation-hypothetical', type: 'fill-blank', difficulty: 5,
+    prompt: 'Si yo ___ viajar a cualquier lugar, iría a Japón. (poder)',
+    english: 'If I could travel anywhere, I would go to Japan.', hint: 'poder — past subjunctive, yo',
+    accepted: ['pudiera', 'pudiese'],
+    explanation: 'Hypothetical "if": Si + past subjunctive (pudiera) + conditional (iría).',
+  },
+  {
+    id: 'ch-3', topic: 'conversation-hypothetical', type: 'open-response', difficulty: 5,
+    prompt: 'Imagina que pierdes tu vuelo en otro país. ¿Qué haces?',
+    english: 'Imagine you miss your flight in another country. What do you do?',
+    starters: ['Bueno, primero…', 'Supongo que…', 'Luego…'],
+    sample: 'Uf, buena pregunta. Bueno, primero hablaría con la aerolínea para buscar otro vuelo. Luego, si fuera necesario, buscaría un hotel para esa noche.',
+    sampleEn: 'Oof, good question. Well, first I would talk to the airline to find another flight. Then, if it were necessary, I would look for a hotel for that night.',
+    explanation: 'React first (buena pregunta), then plan step by step with the conditional. Staying calm and sequencing is the advanced skill here.',
+  },
 ];
 
 export function exercisesForTopic(topic: string): Exercise[] {

@@ -831,6 +831,230 @@ export const LESSONS: Lesson[] = [
       'Gut check: "in order to" → para; "because of / in exchange" → por.',
     ],
   },
+
+  // =========================================================================
+  // PAST SUBJUNCTIVE & "SI" CLAUSES
+  // =========================================================================
+  {
+    topic: 'past-subjunctive',
+    title: 'The Past Subjunctive & "if" clauses',
+    estMinutes: 12,
+    intro:
+      'The past (imperfect) subjunctive is what powers sentences like "**Si tuviera** tiempo, **viajaría** por el mundo" — *If I had time, I would travel the world*. It is the mood of the hypothetical and the contrary-to-fact.',
+    sections: [
+      {
+        heading: 'How to form it (one reliable trick)',
+        body:
+          '1. Take the **ellos** form of the **preterite** (hablaron, comieron, tuvieron, fueron).\n2. Drop **-ron**.\n3. Add **-ra, -ras, -ra, -´ramos, -rais, -ran**.\n\nBecause it starts from the preterite, every irregular preterite stem comes along automatically.',
+        why:
+          'Starting from the preterite ellos form is the whole secret: tuvieron → tuvie- → **tuviera**; fueron → fue- → **fuera**. No separate irregular list — if you know the preterite, you know the past subjunctive.',
+        table: {
+          caption: 'Past subjunctive (-ra endings)',
+          columns: ['Subject', 'hablar (hablaron)', 'tener (tuvieron)', 'ser/ir (fueron)'],
+          rows: [
+            ['yo', 'hablara', 'tuviera', 'fuera'],
+            ['tú', 'hablaras', 'tuvieras', 'fueras'],
+            ['él/ella', 'hablara', 'tuviera', 'fuera'],
+            ['nosotros', 'habláramos', 'tuviéramos', 'fuéramos'],
+            ['ellos', 'hablaran', 'tuvieran', 'fueran'],
+          ],
+        },
+      },
+      {
+        heading: 'Its #1 job: contrary-to-fact "si" clauses',
+        body:
+          'For an "if" that is hypothetical or **untrue right now**, use:\n\n`Si + past subjunctive , conditional`\n\nThe "si" clause takes the past subjunctive; the result clause takes the conditional ("would").',
+        examples: [
+          { es: 'Si tuviera dinero, viajaría más.', en: 'If I had money, I would travel more.', note: 'I don\'t have it → hypothetical.' },
+          { es: 'Si fuera tú, estudiaría más.', en: 'If I were you, I would study more.', note: 'Classic advice pattern.' },
+          { es: 'Si pudiéramos, lo haríamos.', en: 'If we could, we would do it.' },
+        ],
+      },
+      {
+        heading: 'Real vs. unreal "if"',
+        body:
+          'Only **unreal/hypothetical** "if" uses the past subjunctive. A **real, possible** condition stays in the indicative.',
+        examples: [
+          { es: 'Si tengo tiempo, te llamo.', en: 'If I have time, I\'ll call you.', note: 'Real possibility → indicative.' },
+          { es: 'Si tuviera tiempo, te llamaría.', en: 'If I had time, I would call you.', note: 'Unreal/unlikely → past subjunctive + conditional.' },
+        ],
+      },
+      {
+        heading: 'Also: past triggers and polite "quisiera"',
+        body:
+          'When a WEIRDO trigger is in the **past**, the subjunctive that follows also shifts to the past: "Quería que **vinieras**" (I wanted you to come). And **quisiera** is a very common, extra-polite "I would like": *Quisiera un café*.',
+        examples: [
+          { es: 'Esperaba que llegaras a tiempo.', en: 'I was hoping you would arrive on time.' },
+          { es: 'Quisiera hacer una pregunta.', en: 'I would like to ask a question.', note: 'Softer/more polite than "quiero".' },
+        ],
+      },
+    ],
+    keyTakeaways: [
+      'Form it from the preterite ellos form: drop -ron, add -ra endings.',
+      'Contrary-to-fact: Si + past subjunctive, + conditional.',
+      'Real, possible "if" stays indicative (Si tengo…, te llamo).',
+      'Past WEIRDO triggers push the subjunctive into the past; "quisiera" = polite "I\'d like".',
+    ],
+  },
+
+  // =========================================================================
+  // CONVERSATION: EVERYDAY QUESTIONS
+  // =========================================================================
+  {
+    topic: 'conversation-everyday',
+    title: 'Conversation: everyday questions',
+    estMinutes: 8,
+    intro:
+      'Real fluency is answering **in the moment**, without translating in your head first. This lesson gives you a toolkit for the everyday questions you\'ll be asked again and again — then you practice answering them out loud.',
+    sections: [
+      {
+        heading: 'The strategy: buy time, then build',
+        body:
+          'You don\'t need the perfect sentence instantly. Start with a short filler to buy a second, then answer in simple, complete sentences. It is better to say two clear sentences than to freeze hunting for one perfect one.',
+        why:
+          'Native speakers use fillers constantly. Learning a few ("bueno…", "pues…", "a ver…", "la verdad es que…") makes you sound natural AND gives your brain a moment to plan — the single biggest unlock for in-the-moment speaking.',
+      },
+      {
+        heading: 'Fillers & starters to keep handy',
+        body:
+          '**Buying time:** Bueno… · Pues… · A ver… · Déjame pensar… (let me think)\n\n**Starting an answer:** La verdad es que… (the truth is) · Para mí… · Normalmente… · Me gusta(n)… · Creo que…',
+      },
+      {
+        heading: 'Common questions — and a way in',
+        body: '',
+        examples: [
+          { es: '¿Qué te gusta hacer en tu tiempo libre?', en: 'What do you like to do in your free time?', note: 'Start: "Me gusta… / En mi tiempo libre, normalmente…"' },
+          { es: '¿Cómo fue tu fin de semana?', en: 'How was your weekend?', note: 'Use past tenses: "Fue muy bueno. El sábado…"' },
+          { es: '¿Qué vas a hacer este verano?', en: 'What are you going to do this summer?', note: 'Use the future: "Voy a… / Espero…"' },
+          { es: '¿Cómo es tu familia?', en: 'What is your family like?', note: 'Describe: "Somos cuatro. Mi… es…"' },
+        ],
+      },
+    ],
+    keyTakeaways: [
+      'Aim for clear and complete, not perfect — two simple sentences beat one frozen one.',
+      'Use fillers (bueno, pues, a ver) to buy planning time and sound natural.',
+      'Match the tense to the question: past for "how was…", future for "what will…".',
+    ],
+  },
+
+  // =========================================================================
+  // CONVERSATION: TELLING A STORY
+  // =========================================================================
+  {
+    topic: 'conversation-narrate',
+    title: 'Conversation: telling a story',
+    estMinutes: 9,
+    intro:
+      'Narrating a past event is where your tenses come alive. This is hands-on **review of preterite vs. imperfect** — used together, in connected speech, the way you actually tell a story.',
+    sections: [
+      {
+        heading: 'The backbone: set the scene, then the events',
+        body:
+          'Open with the **imperfect** to paint the background (when, where, weather, mood), then use the **preterite** for the chain of things that happened. Close with how it ended or how you felt.',
+        why:
+          'This is the preterite-vs-imperfect rule in its natural habitat: imperfect = the stage and scenery, preterite = the actors\' actions. Telling stories is the fastest way to make that choice automatic.',
+      },
+      {
+        heading: 'Connectors that make it flow',
+        body:
+          '**Sequence:** Primero… · Luego / Después… · Entonces… · Más tarde… · Al final…\n\n**Drama:** De repente… (suddenly) · De pronto… · Por suerte… (luckily) · Lo peor fue que… (the worst part was…)',
+      },
+      {
+        heading: 'A mini-model',
+        body: '',
+        examples: [
+          {
+            es: 'Era sábado y hacía sol. Caminaba por el parque cuando, de repente, empezó a llover. Corrí a un café, pedí un chocolate caliente y al final fue una tarde perfecta.',
+            en: 'It was Saturday and sunny. I was walking through the park when, suddenly, it started to rain. I ran to a café, ordered a hot chocolate, and in the end it was a perfect afternoon.',
+            note: 'Imperfect (era, hacía, caminaba) sets the scene; preterite (empezó, corrí, pedí, fue) carries the events.',
+          },
+        ],
+      },
+    ],
+    keyTakeaways: [
+      'Scene-setting (when/where/weather/feelings) = imperfect.',
+      'The sequence of events = preterite.',
+      'Connectors (primero, luego, de repente, al final) hold the story together.',
+    ],
+  },
+
+  // =========================================================================
+  // CONVERSATION: OPINIONS & CONNECTORS
+  // =========================================================================
+  {
+    topic: 'conversation-opinions',
+    title: 'Conversation: opinions & connectors',
+    estMinutes: 9,
+    intro:
+      'Advanced conversation means having a real exchange — giving an opinion, agreeing or pushing back, and connecting your ideas so they flow. Here are the building blocks.',
+    sections: [
+      {
+        heading: 'Stating an opinion',
+        body:
+          '**Creo que… / Pienso que… / Me parece que…** + indicative (you\'re asserting it): *Creo que tienes razón.*\n\n**No creo que… / No me parece que…** + **subjunctive** (now it\'s doubt): *No creo que tenga razón.*',
+        why:
+          'This is the indicative-vs-subjunctive rule doing real work in conversation: assert an opinion as your reality → indicative; deny or doubt it → subjunctive. Same trigger, flipped by the "no".',
+      },
+      {
+        heading: 'Agreeing & disagreeing',
+        body:
+          '**Agree:** Estoy de acuerdo. · Tienes razón. · Exacto. · Claro.\n\n**Disagree (politely):** No estoy de acuerdo. · Bueno, pero… · Entiendo, sin embargo… · Depende.',
+      },
+      {
+        heading: 'Connectors that level you up',
+        body:
+          '**Add:** además (besides) · también\n**Contrast:** sin embargo (however) · pero · aunque\n**Cause/effect:** por eso (that\'s why) · porque · así que (so)\n**Example:** por ejemplo',
+        examples: [
+          { es: 'Me parece que el examen fue justo; sin embargo, fue muy largo.', en: 'I think the exam was fair; however, it was very long.' },
+          { es: 'No creo que sea buena idea, porque no tenemos tiempo.', en: "I don't think it's a good idea, because we don't have time.", note: 'No creo que → sea (subjunctive).' },
+        ],
+      },
+    ],
+    keyTakeaways: [
+      'Creo que + indicative; No creo que + subjunctive.',
+      'Keep a few agree/disagree phrases ready (estoy de acuerdo, depende, sin embargo).',
+      'Connectors (además, sin embargo, por eso) turn sentences into a real argument.',
+    ],
+  },
+
+  // =========================================================================
+  // CONVERSATION: HYPOTHETICALS & THE UNEXPECTED
+  // =========================================================================
+  {
+    topic: 'conversation-hypothetical',
+    title: 'Conversation: hypotheticals & the unexpected',
+    estMinutes: 9,
+    intro:
+      'The top of Advanced is handling the unplanned — "what would you do if…", reacting to surprises, and speculating. This puts your past subjunctive and conditional to work in live conversation.',
+    sections: [
+      {
+        heading: 'The core pattern',
+        body:
+          'For hypotheticals, lean on `Si + past subjunctive , conditional`: *Si pudiera vivir en otro país, viviría en Costa Rica.* And give advice with **Yo que tú…** or **Yo en tu lugar…** ("If I were you…") + conditional.',
+        why:
+          'These patterns let you handle any "imagine that…" prompt without scrambling. Once "Si + ‑ra, …‑ría" is automatic, unexpected questions stop being scary — you have a frame ready to pour any idea into.',
+      },
+      {
+        heading: 'Reacting in the moment',
+        body:
+          '**Surprise:** ¿En serio? · ¡No me digas! · ¡Qué sorpresa!\n**Buying time on a hard question:** Uf, buena pregunta… · Nunca lo había pensado… (I\'d never thought about it) · Supongo que…\n**Speculating:** Tal vez… / Quizás… (+ subjunctive) · A lo mejor… (+ indicative)',
+      },
+      {
+        heading: 'Practice prompts in action',
+        body: '',
+        examples: [
+          { es: '¿Qué harías si te ganaras la lotería?', en: 'What would you do if you won the lottery?', note: 'Answer: "Si me ganara la lotería, …‑ría."' },
+          { es: 'Si pudieras viajar a cualquier lugar, ¿adónde irías?', en: 'If you could travel anywhere, where would you go?' },
+          { es: 'Imagina que pierdes tu vuelo. ¿Qué haces?', en: 'Imagine you miss your flight. What do you do?', note: 'React + plan: "Bueno, primero…"' },
+        ],
+      },
+    ],
+    keyTakeaways: [
+      'Hypotheticals: Si + past subjunctive, + conditional.',
+      'Give advice with "Yo que tú…" / "Yo en tu lugar…" + conditional.',
+      'Keep reaction phrases ready (¿en serio?, buena pregunta, supongo que…) to stay fluent under pressure.',
+    ],
+  },
 ];
 
 export const LESSON_BY_TOPIC: Record<string, Lesson> = Object.fromEntries(
