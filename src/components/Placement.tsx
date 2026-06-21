@@ -9,7 +9,7 @@ import {
   type EngineState,
 } from '../state/placementEngine';
 import { scorePlacement, type PlacementResult } from '../state/scoring';
-import { LEVEL_PLAIN, PLACEMENT_AREA_LABELS, type PlacementQuestion } from '../types';
+import { LEVELS, LEVEL_PLAIN, levelIndex, PLACEMENT_AREA_LABELS, type Level, type PlacementQuestion } from '../types';
 import { TOPIC_BY_ID } from '../data/topics';
 import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
@@ -21,7 +21,7 @@ import { matchClose } from '../lib/text';
 // wide variety of skill areas, then narrows in — and works for absolute
 // beginners (it opens with basic questions asked in English).
 export function Placement() {
-  const { state, completePlacement, buildPlan } = useStore();
+  const { state, completePlacement, buildPlan, setGoal } = useStore();
   const goal = state.goalLevel ?? 'intermediate-mid';
 
   // Whether this run is a retake (the learner already has a placement on file).
@@ -76,6 +76,7 @@ export function Placement() {
     return (
       <Results
         result={result}
+        goalLevel={goal}
         isRetake={isRetake}
         onRetake={retake}
         onCommitInitial={() => {
@@ -91,6 +92,12 @@ export function Placement() {
           completePlacement(result, true);
           buildPlan();
           navigate('/plan');
+        }}
+        onRaiseGoal={(newGoal) => {
+          setGoal(state.learnerName, newGoal, state.weeks ?? 8, state.daysPerWeek);
+          completePlacement(result, isRetake);
+          buildPlan();
+          navigate(isRetake ? '/plan' : '/');
         }}
       />
     );
@@ -274,24 +281,36 @@ function QuestionBody({ q, answered, picked, onPick, value, onValue, onEnter }: 
 
 interface ResultsProps {
   result: PlacementResult;
+  goalLevel: Level;
   isRetake: boolean;
   onRetake: () => void;
   onCommitInitial: () => void;
   onSaveLevel: () => void;
   onSaveAndRebuild: () => void;
+  onRaiseGoal: (newGoal: Level) => void;
 }
 
 function Results({
   result,
+  goalLevel,
   isRetake,
   onRetake,
   onCommitInitial,
   onSaveLevel,
   onSaveAndRebuild,
+  onRaiseGoal,
 }: ResultsProps) {
   const weak = result.weakest
     .filter((t) => (result.masteryByTopic[t] ?? 100) < 70)
     .slice(0, 5);
+
+  // If you tested at or above your goal, celebrate and offer to aim higher.
+  const goalIdx = levelIndex(goalLevel);
+  const estIdx = levelIndex(result.estimatedLevel);
+  const atOrAboveGoal = estIdx >= goalIdx;
+  const suggestedIdx = Math.min(LEVELS.length - 1, Math.max(goalIdx + 1, estIdx + 1));
+  const canRaise = suggestedIdx > goalIdx;
+  const suggested = LEVELS[suggestedIdx];
 
   return (
     <div className="screen narrow">
@@ -303,7 +322,27 @@ function Results({
         <p>
           Estimated level:{' '}
           <strong className="accent">{LEVEL_PLAIN[result.estimatedLevel]}</strong>
+          <span className="muted"> · your goal: {LEVEL_PLAIN[goalLevel]}</span>
         </p>
+
+        {atOrAboveGoal && (
+          <div className="why-box">
+            <span className="why-tag">🎉 You're already there</span>
+            <p>
+              You tested at <strong>{LEVEL_PLAIN[result.estimatedLevel]}</strong>,
+              which {estIdx > goalIdx ? 'is above' : 'meets'} your goal of{' '}
+              {LEVEL_PLAIN[goalLevel]}.
+              {canRaise
+                ? ' Want to aim higher? I can raise your goal and build a plan that keeps challenging you.'
+                : " You're at the top level the guided plan covers — keep sharpening with practice and the Library."}
+            </p>
+            {canRaise && (
+              <button className="btn primary" onClick={() => onRaiseGoal(suggested)}>
+                Raise my goal to {LEVEL_PLAIN[suggested]} →
+              </button>
+            )}
+          </div>
+        )}
 
         {weak.length > 0 ? (
           <>
@@ -324,11 +363,12 @@ function Results({
         {!isRetake ? (
           <>
             <p className="muted">
-              I've built a personalized plan around these results. You can retake
-              this test or adjust your goal anytime.
+              {atOrAboveGoal && canRaise
+                ? 'Prefer to keep your current goal? You can still start — your plan will focus on polishing what you know.'
+                : "I've built a personalized plan around these results. You can retake this test or adjust your goal anytime."}
             </p>
             <button className="btn primary big" onClick={onCommitInitial}>
-              See my plan →
+              {atOrAboveGoal && canRaise ? 'Keep my goal & see my plan →' : 'See my plan →'}
             </button>
           </>
         ) : (

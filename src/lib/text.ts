@@ -17,27 +17,54 @@ export function matchesAny(input: string, accepted: string[]): boolean {
   return accepted.some((a) => normalize(a) === n);
 }
 
+// Spanish subject pronouns are optional, so "como pan" and "yo como pan" are
+// both correct. We compare with and without a leading pronoun. (Accents are
+// already stripped by normalize, so ascii spellings suffice here.)
+const SUBJECT_PRONOUNS = new Set([
+  'yo', 'tu', 'el', 'ella', 'usted', 'ud',
+  'nosotros', 'nosotras', 'vosotros', 'vosotras',
+  'ellos', 'ellas', 'ustedes', 'uds',
+]);
+
+/** Normalized forms of a phrase, with and without a leading subject pronoun. */
+function subjectVariants(s: string): string[] {
+  const n = normalize(s);
+  const parts = n.split(' ');
+  if (parts.length > 1 && SUBJECT_PRONOUNS.has(parts[0])) {
+    return [n, parts.slice(1).join(' ')];
+  }
+  return [n];
+}
+
 /**
- * Lenient match for typed answers: accepts an exact match, or a close one
- * (a small typo / minor slip). Returns whether it counts and whether it was
- * exact, so the UI can still show the precise form when the answer was "close".
+ * Lenient match for typed answers: accepts an exact match (treating a leading
+ * subject pronoun as optional), or a close one (a small typo / minor slip).
+ * Returns whether it counts and whether it was exact, so the UI can still show
+ * the precise form when the answer was only "close".
  */
 export function matchClose(
   input: string,
   accepted: string[],
 ): { ok: boolean; exact: boolean } {
-  const n = normalize(input);
-  if (!n) return { ok: false, exact: false };
+  const inVariants = subjectVariants(input);
+  if (!inVariants[0]) return { ok: false, exact: false };
 
-  for (const a of accepted) {
-    if (normalize(a) === n) return { ok: true, exact: true };
+  const acceptedVariants = accepted.map(subjectVariants);
+
+  // Exact (pronoun-optional) match.
+  for (const av of acceptedVariants) {
+    for (const i of inVariants) {
+      if (av.includes(i)) return { ok: true, exact: true };
+    }
   }
-  // Close enough: within one edit, or ≥ 80% similar to any accepted answer.
-  for (const a of accepted) {
-    const na = normalize(a);
-    const dist = editDistance(n, na);
-    if (dist <= 1 && na.length >= 3) return { ok: true, exact: false };
-    if (similarity(n, na) >= 0.8) return { ok: true, exact: false };
+  // Close enough: within one edit, or ≥ 80% similar to any accepted variant.
+  for (const av of acceptedVariants) {
+    for (const a of av) {
+      for (const i of inVariants) {
+        if (editDistance(i, a) <= 1 && a.length >= 3) return { ok: true, exact: false };
+        if (similarity(i, a) >= 0.8) return { ok: true, exact: false };
+      }
+    }
   }
   return { ok: false, exact: false };
 }
