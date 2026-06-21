@@ -17,6 +17,31 @@ export function matchesAny(input: string, accepted: string[]): boolean {
   return accepted.some((a) => normalize(a) === n);
 }
 
+/**
+ * Lenient match for typed answers: accepts an exact match, or a close one
+ * (a small typo / minor slip). Returns whether it counts and whether it was
+ * exact, so the UI can still show the precise form when the answer was "close".
+ */
+export function matchClose(
+  input: string,
+  accepted: string[],
+): { ok: boolean; exact: boolean } {
+  const n = normalize(input);
+  if (!n) return { ok: false, exact: false };
+
+  for (const a of accepted) {
+    if (normalize(a) === n) return { ok: true, exact: true };
+  }
+  // Close enough: within one edit, or ≥ 80% similar to any accepted answer.
+  for (const a of accepted) {
+    const na = normalize(a);
+    const dist = editDistance(n, na);
+    if (dist <= 1 && na.length >= 3) return { ok: true, exact: false };
+    if (similarity(n, na) >= 0.8) return { ok: true, exact: false };
+  }
+  return { ok: false, exact: false };
+}
+
 /** Levenshtein edit distance. */
 export function editDistance(a: string, b: string): number {
   const m = a.length;

@@ -15,7 +15,7 @@ import { useStore } from '../state/store';
 import { navigate } from '../lib/router';
 import { Markdown } from './Markdown';
 import { SpeakButton } from './SpeakButton';
-import { matchesAny } from '../lib/text';
+import { matchClose } from '../lib/text';
 
 // The adaptive placement test. Starts a couple levels below the goal, samples a
 // wide variety of skill areas, then narrows in — and works for absolute
@@ -42,7 +42,7 @@ export function Placement() {
     if (current.type === 'multiple-choice' || current.type === 'listening') {
       correct = picked === current.answer;
     } else {
-      correct = matchesAny(value, current.accepted);
+      correct = matchClose(value, current.accepted).ok;
     }
     setEngine(record(engine, current, correct));
     setLastCorrect(correct);
@@ -228,7 +228,7 @@ function QuestionBody({ q, answered, picked, onPick, value, onValue, onEnter }: 
 
   // fill-blank or translate → typed answer
   const accepted = q.accepted;
-  const correct = matchesAny(value, accepted);
+  const res = matchClose(value, accepted);
   return (
     <div>
       {q.type === 'fill-blank' ? (
@@ -256,9 +256,14 @@ function QuestionBody({ q, answered, picked, onPick, value, onValue, onEnter }: 
           if (e.key === 'Enter' && !answered && value.trim()) onEnter();
         }}
       />
-      {answered && !correct && (
+      {answered && !res.ok && (
         <p className="answer-reveal">
           Answer: <strong>{accepted[0]}</strong>
+        </p>
+      )}
+      {answered && res.ok && !res.exact && (
+        <p className="answer-reveal">
+          Close enough! The exact answer is <strong>{accepted[0]}</strong>.
         </p>
       )}
     </div>

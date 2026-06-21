@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Exercise } from '../types';
 import { EXERCISE_TYPE_LABELS } from '../types';
-import { matchesAny, judgeSpoken, normalize } from '../lib/text';
+import { matchClose, judgeSpoken, normalize } from '../lib/text';
 import { listen, speechSupport, type ListenHandle } from '../lib/speech';
 import { SpeakButton } from './SpeakButton';
 import { Markdown } from './Markdown';
@@ -182,8 +182,9 @@ function TextBody({ exercise, answered, onAnswer }: BodyProps) {
     context = <p className="big-prompt">“{exercise.prompt}”</p>;
   }
 
+  const res = matchClose(value, accepted);
   function check() {
-    onAnswer(matchesAny(value, accepted));
+    onAnswer(res.ok);
   }
 
   return (
@@ -201,9 +202,14 @@ function TextBody({ exercise, answered, onAnswer }: BodyProps) {
           if (e.key === 'Enter' && !answered && value.trim()) check();
         }}
       />
-      {answered && !matchesAny(value, accepted) && (
+      {answered && !res.ok && (
         <p className="answer-reveal">
           Answer: <strong>{accepted[0]}</strong>
+        </p>
+      )}
+      {answered && res.ok && !res.exact && (
+        <p className="answer-reveal">
+          Close enough! The exact answer is <strong>{accepted[0]}</strong>.
         </p>
       )}
       {!answered && (
