@@ -197,8 +197,8 @@ function QuestionBody({ q, answered, picked, onPick, value, onValue, onEnter }: 
       <div>
         {q.type === 'listening' ? (
           <div className="listen-block">
-            <p className="prompt q">🎧 Listen, then answer:</p>
-            <SpeakButton text={q.audioText} label="Play audio" className="big" />
+            <p className="prompt q">🎧 Listen to the Spanish, then choose the English meaning:</p>
+            <SpeakButton text={q.audioText} label="▶ Play audio (tap to replay)" className="big" />
             <p className="prompt">{q.prompt}</p>
           </div>
         ) : (

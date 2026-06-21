@@ -47,9 +47,9 @@ export const PLACEMENT: PlacementQuestion[] = [
   {
     id: 'b6', type: 'listening', area: 'basics', topic: 'basics', level: 'novice-low',
     audioText: 'Gracias',
-    prompt: 'Listen. What did you hear?',
+    prompt: 'What does it mean in English?',
     options: ['Thank you', 'Hello', 'Goodbye', 'Please'], answer: 0,
-    explanation: 'You heard "Gracias" — thank you.',
+    explanation: 'You heard "Gracias" — it means "thank you".',
   },
 
   // =======================================================================
@@ -81,8 +81,8 @@ export const PLACEMENT: PlacementQuestion[] = [
   },
   {
     id: 'b11', type: 'listening', area: 'vocab', topic: 'vocab', level: 'novice-mid',
-    audioText: 'el agua',
-    prompt: 'Listen. What word did you hear?',
+    audioText: 'agua',
+    prompt: 'What does this word mean in English?',
     options: ['water', 'bread', 'milk', 'coffee'], answer: 0,
     explanation: '"agua" = water.',
   },
@@ -173,7 +173,7 @@ export const PLACEMENT: PlacementQuestion[] = [
   {
     id: 'i9', type: 'listening', area: 'past', topic: 'preterite', level: 'intermediate-mid',
     audioText: 'Ayer comí en un restaurante con mi familia.',
-    prompt: 'Listen. What is the sentence about?',
+    prompt: 'In English, what is the sentence about?',
     options: ['Eating at a restaurant yesterday', 'Cooking for the family tonight', 'Going to school every day', 'Buying food at the market'], answer: 0,
     explanation: '"Ayer comí en un restaurante con mi familia" = Yesterday I ate at a restaurant with my family.',
   },
